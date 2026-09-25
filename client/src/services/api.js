@@ -1,6 +1,27 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Intelligent dynamic API URL detection:
+// 1. Uses VITE_API_URL if set
+// 2. In production / deployed domains (like Vercel), points directly to the live Render backend
+// 3. In local development (localhost / 127.0.0.1), points to local backend port 5000
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL.replace(/\/+$/, '');
+  }
+  if (typeof window !== 'undefined' && window.location) {
+    const hostname = window.location.hostname;
+    const isLocal =
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1' ||
+      hostname === '0.0.0.0';
+    if (!isLocal) {
+      return 'https://skillswap-1-01s6.onrender.com/api';
+    }
+  }
+  return 'http://localhost:5000/api';
+};
+
+const API_URL = getApiBaseUrl();
 
 const api = axios.create({
   baseURL: API_URL,
@@ -26,9 +47,8 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // If token expired or invalid, optionally clear token
-      // Avoid redirecting if already on public pages
       const currentPath = window.location.pathname;
+      // Clear credentials on 401 if not on authentication or public landing pages
       if (
         currentPath !== '/login' &&
         currentPath !== '/register' &&
@@ -37,7 +57,6 @@ api.interceptors.response.use(
       ) {
         localStorage.removeItem('skillswap_token');
         localStorage.removeItem('skillswap_user');
-        window.location.href = '/login?session=expired';
       }
     }
     return Promise.reject(error);

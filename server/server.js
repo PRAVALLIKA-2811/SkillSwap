@@ -11,13 +11,43 @@ dotenv.config();
 
 const app = express();
 
-// Enable CORS
+// Enable CORS for Vercel, Render, and Localhost environments
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://localhost:5000',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:5000',
+  'https://skill-swap-taupe-two.vercel.app',
+  'https://skillswap-1-01s6.onrender.com',
+];
+
 app.use(
   cors({
-    origin: '*',
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, server-to-server)
+      if (!origin) return callback(null, true);
+      // Allow Vercel preview/production domains, Render domains, localhost, and exact matches
+      if (
+        allowedOrigins.indexOf(origin) !== -1 ||
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.onrender.com') ||
+        origin.includes('localhost') ||
+        origin.includes('127.0.0.1')
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
   })
 );
+
+// Pre-flight handling
+app.options('*', cors());
 
 // Body Parser
 app.use(express.json());
