@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "SkillSwap Backend API - Peer Skill Exchange Platform",
   "main": "server.js",
+  "license": "MIT",
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",
+    "build": "echo 'No build step required for backend server'",
     "dev": "nodemon server.js",
     "seed": "node seed/seedData.js"
   },

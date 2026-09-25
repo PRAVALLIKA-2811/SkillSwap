@@ -57,7 +57,20 @@ app.use('/api/messages', require('./routes/messageRoutes'));
 app.use('/api/sessions', require('./routes/sessionRoutes'));
 app.use('/api/reviews', require('./routes/reviewRoutes'));
 
-// 404 Route handler for undefined endpoints
+// Serve static frontend in production if client/dist exists
+const fs = require('fs');
+const clientDistPath = path.join(__dirname, '../client/dist');
+if (fs.existsSync(clientDistPath)) {
+  app.use(express.static(clientDistPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.resolve(clientDistPath, 'index.html'));
+  });
+}
+
+// 404 Route handler for undefined API endpoints
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
