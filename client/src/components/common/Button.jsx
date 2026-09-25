@@ -18,19 +18,21 @@ const Button = ({
 
   const variants = {
     primary:
-      'bg-brand-600 text-white hover:bg-brand-700 shadow-md shadow-brand-500/20 focus:ring-brand-500',
+      'bg-brand-600 text-white hover:bg-brand-700 shadow-md shadow-brand-600/25 focus:ring-brand-500',
     secondary:
-      'bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-200 focus:ring-slate-400',
+      'bg-brand-50 text-brand-700 hover:bg-brand-100 border border-brand-200/80 focus:ring-brand-400',
     outline:
       'bg-transparent border-2 border-brand-600 text-brand-600 hover:bg-brand-50 focus:ring-brand-500',
+    accent:
+      'bg-accent-500 text-white hover:bg-accent-600 shadow-md shadow-accent-500/25 focus:ring-accent-400',
     ghost:
-      'bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:ring-slate-300',
+      'bg-transparent text-ink-secondary hover:text-ink-primary hover:bg-brand-50/80 focus:ring-brand-300',
     danger:
       'bg-rose-600 text-white hover:bg-rose-700 shadow-md shadow-rose-500/20 focus:ring-rose-500',
     success:
       'bg-emerald-600 text-white hover:bg-emerald-700 shadow-md shadow-emerald-500/20 focus:ring-emerald-500',
     gradient:
-      'bg-gradient-to-r from-brand-600 to-indigo-600 text-white hover:from-brand-700 hover:to-indigo-700 shadow-lg shadow-brand-500/25',
+      'bg-gradient-to-r from-brand-600 via-brand-500 to-accent-500 text-white hover:brightness-105 shadow-lg shadow-brand-600/25',
   };
 
   const sizes = {

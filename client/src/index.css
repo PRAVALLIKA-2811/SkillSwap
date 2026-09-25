@@ -4,7 +4,9 @@
 
 @layer base {
   body {
-    @apply font-sans bg-slate-50 text-slate-800;
+    background-color: #FAF9FF;
+    color: #18181B;
+    font-family: 'Plus Jakarta Sans', Inter, -apple-system, BlinkMacSystemFont, sans-serif;
   }
 }
 
@@ -15,37 +17,54 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #FAF9FF;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 rounded-full;
+  background: #DDD6FE;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400;
+  background: #C4B5FD;
 }
 
 /* Glassmorphic elements */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(221, 214, 254, 0.6);
 }
 
-.dark-glass-panel {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(51, 65, 85, 0.5);
+.card-shadow {
+  box-shadow: 0 4px 20px -2px rgba(124, 58, 237, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
 }
 
-/* Animated Gradient Background */
+.card-shadow-hover {
+  box-shadow: 0 10px 25px -4px rgba(124, 58, 237, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Gradients */
 .gradient-bg {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #2563eb 100%);
+  background: linear-gradient(135deg, #7C3AED 0%, #A855F7 60%, #F59E0B 100%);
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #A855F7 0%, #F59E0B 100%);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-accent {
+  background: linear-gradient(135deg, #7C3AED 0%, #F59E0B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
