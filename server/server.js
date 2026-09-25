@@ -112,23 +112,20 @@ app.use('*', (req, res) => {
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
+const HOST = '0.0.0.0';
 
-// Start server after connecting to database
-const startServer = async () => {
-  try {
-    await connectDB();
-    app.listen(PORT, () => {
-      console.log(`=============================================`);
-      console.log(`  SkillSwap API Server running on port ${PORT}`);
-      console.log(`  Health check: http://localhost:${PORT}/api/health`);
-      console.log(`=============================================`);
-    });
-  } catch (err) {
-    console.error('Failed to start server:', err);
-  }
-};
+// Start server immediately on 0.0.0.0 for Render port detection
+const server = app.listen(PORT, HOST, () => {
+  console.log(`=============================================`);
+  console.log(`  SkillSwap API Server running on http://${HOST}:${PORT}`);
+  console.log(`  Health check: /api/health`);
+  console.log(`=============================================`);
+});
 
-startServer();
+// Connect to MongoDB
+connectDB().catch((err) => {
+  console.error('Database connection error during startup:', err);
+});
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
